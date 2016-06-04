@@ -1,6 +1,6 @@
 package com.directions.route;
 
-import com.google.android.gms.maps.model.LatLng;
+import com.directions.route.model.LatLng;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -105,7 +105,7 @@ public class Routing extends AbstractRouting {
         public Builder () {
             this.travelMode = TravelMode.DRIVING;
             this.alternativeRoutes = false;
-            this.waypoints = new ArrayList<>();
+            this.waypoints = new ArrayList<LatLng>();
             this.avoidKinds = 0;
             this.listener = null;
             this.optimize = false;
@@ -130,7 +130,7 @@ public class Routing extends AbstractRouting {
         }
 
         public Builder waypoints (List<LatLng> waypoints) {
-            this.waypoints = new ArrayList<>(waypoints);
+            this.waypoints = new ArrayList<LatLng>(waypoints);
             return this;
         }
 

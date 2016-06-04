@@ -1,7 +1,5 @@
 package com.directions.route;
 
-import android.util.Log;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,7 +24,7 @@ public class RouteException extends Exception {
             statusCode = json.getString(KEY_STATUS);
             message = json.getString(KEY_MESSAGE);
         } catch (JSONException e) {
-            Log.e(TAG, "JSONException while parsing RouteException argument. Msg: " + e.getMessage());
+         //   Log.e(TAG, "JSONException while parsing RouteException argument. Msg: " + e.getMessage());
         }
     }
 

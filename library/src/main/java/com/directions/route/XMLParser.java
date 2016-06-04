@@ -1,8 +1,6 @@
 package com.directions.route;
 //by Haseem Saheed
 
-import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
@@ -19,7 +17,7 @@ public class XMLParser {
         try {
             this.feedUrl = new URL(feedUrl);
         } catch (MalformedURLException e) {
-            Log.e("Routing Error", e.getMessage());
+          //  Log.e("Routing Error", e.getMessage());
         }
     }
 
@@ -27,7 +25,7 @@ public class XMLParser {
         try {
             return feedUrl.openConnection().getInputStream();
         } catch (IOException e) {
-            Log.e("Routing Error", e.getMessage());
+           // Log.e("Routing Error", e.getMessage());
             return null;
         }
     }

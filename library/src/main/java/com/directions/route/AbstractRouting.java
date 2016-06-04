@@ -9,16 +9,14 @@ package com.directions.route;
  *
  */
 
-import android.os.AsyncTask;
-
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.PolylineOptions;
+import com.directions.route.model.LatLng;
+import com.directions.route.model.PolylineOptions;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class AbstractRouting extends AsyncTask<Void, Void, List<Route>> {
+public abstract class AbstractRouting {
     protected List<RoutingListener> alisteners;
 
     protected static final String DIRECTIONS_API_URL = "https://maps.googleapis.com/maps/api/directions/json?";
@@ -112,27 +110,15 @@ public abstract class AbstractRouting extends AsyncTask<Void, Void, List<Route>>
      *
      * @return an array list containing the routes
      */
-    @Override
-    protected List<Route> doInBackground(Void... voids) {
+    public List<Route> execute() {
         List<Route> result = new ArrayList<Route>();
         try {
             result = new GoogleParser(constructURL()).parse();
         }catch(RouteException e){
             mException = e;
         }
-        return result;
-    }
 
-    protected abstract String constructURL();
-
-    @Override
-    protected void onPreExecute() {
-        dispatchOnStart();
-    }
-
-    @Override
-    protected void onPostExecute(List<Route> result) {
-        if (!result.isEmpty()) {
+      if (!result.isEmpty()) {
             int shortestRouteIndex = 0;
             int minDistance = Integer.MAX_VALUE;
 
@@ -155,11 +141,10 @@ public abstract class AbstractRouting extends AsyncTask<Void, Void, List<Route>>
         } else {
             dispatchOnFailure(mException);
         }
+
+        return result;
     }//end onPostExecute method
 
-    @Override
-    protected void onCancelled() {
-        dispatchOnCancelled();
-    }
+    protected abstract String constructURL();
 
 }

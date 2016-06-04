@@ -1,9 +1,6 @@
 package com.directions.route;
 
-import android.util.Log;
-
-import com.google.android.gms.maps.model.LatLng;
-
+import com.directions.route.model.LatLng;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +35,7 @@ public class GoogleParser extends XMLParser implements Parser {
      */
 
     public final List<Route> parse() throws RouteException {
-        List<Route> routes = new ArrayList<>();
+        List<Route> routes = new ArrayList<Route>();
 
         // turn the stream into a string
         final String result = convertStreamToString(this.getInputStream());
@@ -67,9 +64,6 @@ public class GoogleParser extends XMLParser implements Parser {
                 final JSONObject jsonBounds = jsonRoute.getJSONObject("bounds");
                 final JSONObject jsonNortheast = jsonBounds.getJSONObject("northeast");
                 final JSONObject jsonSouthwest = jsonBounds.getJSONObject("southwest");
-
-                route.setLatLgnBounds(new LatLng(jsonNortheast.getDouble("lat"), jsonNortheast.getDouble("lng")), new LatLng(jsonSouthwest.getDouble("lat"), jsonSouthwest.getDouble("lng")));
-
                 //Get the leg, only one leg as we don't support waypoints
                 final JSONObject leg = jsonRoute.getJSONArray("legs").getJSONObject(0);
                 //Get the steps for this leg
@@ -150,13 +144,13 @@ public class GoogleParser extends XMLParser implements Parser {
                 sBuf.append(line);
             }
         } catch (IOException e) {
-            Log.e("Routing Error", e.getMessage());
+           // Log.e("Routing Error", e.getMessage());
         } finally {
             try {
                 input.close();
                 reader.close();
             } catch (IOException e) {
-                Log.e("Routing Error", e.getMessage());
+            //    Log.e("Routing Error", e.getMessage());
             }
         }
         return sBuf.toString();
